@@ -1,0 +1,11 @@
+
+A little speculative roadmap:
+
+0.3: This version.
+
+0.4: Copying, moving and deleting files. Some refactoring of WSGI components.
+
+0.5: Using REMOTE_USER to determine the username to commit with, or something
+     like that. More refactoring of WSGI components.
+
+0.6: RSS or atom feeds. Diffs between arbitrary revisions. More refactoring.
