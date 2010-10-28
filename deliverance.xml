@@ -7,7 +7,7 @@
     <dev-allow>127.0.0.1</dev-allow>
   </server-settings>
 
-  <proxy path="/theme">
+  <proxy path="/theme_files">
     <request header="X-Deliverance-Notheme" content="1" />
     <dest next="1" />
   </proxy>
@@ -16,10 +16,11 @@
     <wsgi app="config:///home/ejucovy/deli/svenweb/paste.ini" /> 
   </proxy>
 
-  <theme href="/theme/theme?latest-version" />
+  <theme href="/theme_files/theme?latest-version" />
 
   <rule>
     <replace content="children:body" theme="div#content" />
+    <append content="script" theme="head" href="/theme_files/prev_link?latest-version" />
   </rule>
 
 </ruleset>
