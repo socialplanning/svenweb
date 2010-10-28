@@ -14,3 +14,5 @@ _go_unmodified_version(page_id=${page_id}, rev_big=7, rev_small=4)
 
 _go_repo_future(page_id=${page_id}, version=8, last_change=4)
 _go_repo_future(page_id=${page_id}, version=80, last_change=4)
+
+_go_before_page_created(page_id=${page_id2}, version=3)
