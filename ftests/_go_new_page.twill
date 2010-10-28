@@ -1,5 +1,8 @@
 go ${base_url}/${page_id}/
 
+extend_with flunc.urlinspector
+
 # note that the trailing slash should trimmed in the redirect
 code 200
-url ${base_url}/${page_id} #?view=edit
+url ${base_url}/${page_id}
+url_qs view edit

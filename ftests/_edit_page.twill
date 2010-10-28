@@ -1,10 +1,13 @@
-url ${base_url}/${page_id} #?view=edit
+url ${base_url}/${page_id} 
+url_qs view edit
 
 fv 1 svenweb.resource_body ${body}
 fv 1 svenweb.commit_message ${msg}
 submit
 
 url ${base_url}/${page_id}
+url_qs version ${version}
+
 find ${body}
 go ${base_url}/${page_id}?view=history
 find ${msg}

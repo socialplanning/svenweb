@@ -1,6 +1,4 @@
-rm -rf /tmp/svnrepo
-rm -rf /tmp/svnco
-svnadmin create /tmp/svnrepo
-svn co file:///tmp/svnrepo /tmp/svnco
-echo flunc -p ftests/ svenweb -D page_id=$1,page_id2=$2,rev_big=3,rev_small=2$4 $3
-flunc -p ftests/ svenweb -D page_id=$1,page_id2=$2,rev_big=3,rev_small=2$4 $3
+rm -rf /tmp/svenweb
+bzr init /tmp/svenweb
+echo flunc -t http://localhost:5052 -p ftests/ svenweb -D page_id=joe-page,page_id2=moe-page,rev_big=3,rev_small=2$2 $1
+flunc -t http://localhost:5052 -p ftests/ svenweb -D page_id=joe-page,page_id2=moe-page,rev_big=3,rev_small=2$2 $1

@@ -1,5 +1,5 @@
 go ${base_url}/${page_id}
 code 200
 
-follow "edit"
+go ${base_url}/${page_id}?view=edit
 code 200
