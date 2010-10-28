@@ -1,0 +1,10 @@
+# go to a page at a version prior to the page's creation
+
+go ${base_url}/${page_id}?version=${version}
+code 404
+find "Page not yet born at revision ${version}"
+
+follow "its first revision"
+code 200
+url ${base_url}/${page_id}
+url_qs version ${first_version}
