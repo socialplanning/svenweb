@@ -1,0 +1,15 @@
+<html>
+<head>
+<title>{{title}}</title>
+</head>
+<body>
+<ol>
+{{for obj in globs}}
+<li>
+r{{obj['fields']['version']}}: "{{obj['fields']['message']}}"
+ &mdash; by {{obj['fields']['author']}} on {{obj['fields']['timestamp']}}. File changed: <a href="{{obj['full_href']}}?version={{obj['fields']['version']}}">{{obj['href']}}</a>
+</li>
+{{endfor}}
+</ol>
+</body>
+</html>

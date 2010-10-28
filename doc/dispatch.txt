@@ -1,0 +1,40 @@
+The action is determined from the request.  There are five actions:
+ read
+ edit
+ write
+ history
+ index
+
+After the action is determined, the context is retrieved from the database,
+with a file path determined from the request.
+
+In addition to the file path, each action is associated with a fundamentally
+different type of context.
+
+* Read and edit actions use a content body and a content type.
+
+* Write actions use only the file path.
+
+* History actions use a changelog, where each entry contains a revision number
+  and a commit message.
+
+* Index actions use a file listing, where each entry contains a file path.
+
+With the context known, svenweb finally dispatches the request to a handler
+registered for the given action, based on the state of the database.
+
+Edit
+----
+
+An edit handler will handle three possibilities. Each will return a webob.Response
+object or None:
+
+* editform(request, content, mimetype)
+* new(request)
+* directory(request)
+
+Write
+-----
+
+* save(request) -> contents, message, mimetype, response
+

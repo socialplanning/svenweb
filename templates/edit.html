@@ -1,0 +1,21 @@
+<html>
+<body>
+<form method="post">
+<textarea rows="30" cols="100" id="svenweb_resource_body" name="svenweb.resource_body">
+{{body}}
+</textarea>
+<br/>
+<label for="svenweb.commit_message">Change note</label>
+<input type="text" name="svenweb.commit_message"></input>
+<br/>
+<label for="svenweb.mimetype">mimetype</label>
+<input type="text" name="svenweb.mimetype" value="{{mimetype}}"></input>
+<br/>
+<label for="convert">Auto-convert format?</label>
+<input type="checkbox" name="convert" value="0"></input>
+<label for="convert_from">From format:</label>
+<input type="text" name="convert_from"></input>
+<input type="submit" name="Save" value="Save"/>
+</form>
+</body>
+</html>

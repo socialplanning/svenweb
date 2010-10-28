@@ -1,0 +1,23 @@
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script type="text/javascript">
+  var fetch = function(url) {
+    var afterFetch = function(req, status) {
+      var version = req.getResponseHeader("X-Svenweb-Version");
+      var prev = parseInt(version) - 1;
+      jQuery("<a>").attr("href", url + "?version=" + prev)
+                   .text("Previous Version")
+		   .appendTo("#navigation");
+      jQuery("#navigation").show();
+    };
+
+    jQuery.ajax({
+      url: url + "?latest-version",
+      type: "HEAD",
+      complete: afterFetch
+    });
+  };
+
+  jQuery(window).load(function() {
+    if( console ) console.log("foo");
+  });
+</script>

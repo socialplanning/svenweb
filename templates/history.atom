@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+
+  <title>{{title}}</title>
+
+  <link href="link" />
+  <updated>{{globs[0]['fields']['timestamp']}}</updated>
+
+  {{for obj in globs}}
+  <entry>
+    <title>{{obj['href']}}</title>
+    <link href="{{obj['href']}}?version={{obj['fields']['version']}}" />
+    <id>{{obj['fields']['version']}}</id>
+    <updated>{{obj['fields']['timestamp']}}</updated>
+    <summary>{{obj['fields']['message']}}</summary>
+  </entry>
+  {{endfor}}
+
+</feed>

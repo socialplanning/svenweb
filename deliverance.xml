@@ -1,0 +1,25 @@
+<ruleset>
+
+  <server-settings>
+    <server>0.0.0.0:7000</server>
+    <execute-pyref>true</execute-pyref>
+    <dev-user username="bob" password="uncle" />
+    <dev-allow>127.0.0.1</dev-allow>
+  </server-settings>
+
+  <proxy path="/theme">
+    <request header="X-Deliverance-Notheme" content="1" />
+    <dest next="1" />
+  </proxy>
+
+  <proxy path="/">
+    <wsgi app="config:///home/ejucovy/deli/svenweb/paste.ini" /> 
+  </proxy>
+
+  <theme href="/theme/theme?latest-version" />
+
+  <rule>
+    <replace content="children:body" theme="div#content" />
+  </rule>
+
+</ruleset>
