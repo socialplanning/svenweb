@@ -11,3 +11,6 @@ _edit_page(page_id=${page_id2}, body="flurab", msg="added a new one", version=6)
 
 _go_existing_page(page_id=${page_id})
 _go_unmodified_version(page_id=${page_id}, rev_big=7, rev_small=4)
+
+_go_repo_future(page_id=${page_id}, version=8, last_change=4)
+_go_repo_future(page_id=${page_id}, version=80, last_change=4)

@@ -250,7 +250,14 @@ class SvnWikiView(object):
         except ResourceUnchanged, e:
             request.GET['version'] = str(e.last_change)
             return redirect(request)
-        
+        except FutureRevision, e:
+            error = "<h1>No such revision %s</h1>" % e.rev
+            last_changed_rev = self.svn(request).last_changed_rev(request.path_info, version)
+            request.GET['version'] = last_changed_rev
+            redirected = redirect(request)
+            error += "<div>Perhaps try <a href='%s'>this</a> instead" % redirected.location
+            return exc.HTTPNotFound(body=error)
+
         content = contents['body']
         mimetype = contents['mimetype']
 
