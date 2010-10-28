@@ -1,0 +1,8 @@
+ * When displaying an edit form for a file that does not exist,
+   use the return value of mimetypes.guess_type as the default
+   mimetype for the file in the form. If no guessable mimetype
+   is found, the default is 'text/html'.
+
+   This behavior can be overridden by subclassing SvnWikiView
+   and implementing a custom `new_file_default_mimetype_policy`
+   method. The method should take a `request` argument.

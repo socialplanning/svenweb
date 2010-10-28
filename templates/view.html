@@ -1,0 +1,24 @@
+<html>
+<head>
+<title>{{title}}</title>
+<link rel="prev" href="{{prev_href}}"></link>
+
+<link rel="stylesheet" href="ui18n.css?client"></link>
+<script type="text/javascript" src="jquery.js?client"></script>
+<script type="text/javascript" src="jquery.localize.js?client"></script>
+
+{{if mimetype == 'text/html+commentable'}}
+<link rel="comments" href="/comments{{title}}"></link>
+{{endif}}
+
+</head>
+<body>
+{{body}}
+<br/>
+<a href="{{title}}?view=edit">Edit</a>
+<a href="{{prev_href}}">Previous Version</a>
+{{if mimetype == 'text/html+commentable'}}
+<a href="/comments{{title}}?factory">Comments</a>
+{{endif}}
+</body>
+</html>

@@ -1,0 +1,26 @@
+0.2 (2010-01-26)
+----------------
+
+ * BZR repositories are now supported. This is much faster than
+   SVN. To use, simply add 'svenweb.repo_type=bzr' to your
+   paste.deploy configuration.
+
+ * Added a WSGI middleware filter to set a response's Content-type
+   header based on the versioned mimetype property of a resource.
+   It can be used independent of the rest of svenweb, for example
+   if you want to publish the current contents of your versioned
+   resources with a static file server. Use like
+
+       [filter:contenttype]
+       use = egg:svenweb#content_type
+       checkout_dir = /path/to_your/checkout/
+       default_content_type = text/plain
+       repo_type = bzr
+
+    The 'repo_type' and 'default_content_type' settings are optional.
+
+
+0.1.1 (2010-01-03)
+------------------
+
+First release.

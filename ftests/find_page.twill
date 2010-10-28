@@ -1,0 +1,7 @@
+go ${base_url}/${page_id}
+code 200
+
+go ${base_url}
+find ${page_id}
+follow ${page_id}
+code 200
