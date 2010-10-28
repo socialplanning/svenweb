@@ -16,3 +16,4 @@ _go_repo_future(page_id=${page_id}, version=8, last_change=4)
 _go_repo_future(page_id=${page_id}, version=80, last_change=4)
 
 _go_before_page_created(page_id=${page_id2}, version=3, first_version=6)
+_go_before_page_created(page_id=${page_id}, version=0, first_version=1)

@@ -259,7 +259,7 @@ class SvnWikiView(object):
 
             # It does exist, at some point in the future.
             assert revs and len(revs)
-            first_rev = revs[0]
+            first_rev = revs[-1]
             error = "<h1>Page not yet born at revision %s</h1>" % version
             request.GET['version'] = first_rev
             redirected = redirect(request)
