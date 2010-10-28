@@ -4,7 +4,7 @@ go ${base_url}/${page_id}?version=${version}
 code 404
 find "No such revision ${version}"
 
-follow "this"
+follow "its last revision"
 code 200
 url ${base_url}/${page_id}
 url_qs version ${last_change}

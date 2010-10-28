@@ -243,19 +243,39 @@ class SvnWikiView(object):
             request.GET['view'] = 'index'
             return redirect(request)
         except NoSuchResource:
-            request.GET['view'] = 'edit'
-            if request.GET.has_key('version'):
-                del request.GET['version']
-            return redirect(request)
+            # We might have gotten here because the page 
+            # did not yet exist at the given revision.
+            # So, let's check whether it has any revisions
+            # in the log at all.
+            try:
+                revs = self.svn(request).revisions(request.path_info)
+
+            except NoSuchResource:
+                # OK, it really doesn't exist.
+                request.GET['view'] = 'edit'
+                if request.GET.has_key('version'):
+                    del request.GET['version']
+                return redirect(request)
+
+            # It does exist, at some point in the future.
+            assert revs and len(revs)
+            first_rev = revs[0]
+            error = "<h1>Page not yet born at revision %s</h1>" % version
+            request.GET['version'] = first_rev
+            redirected = redirect(request)
+            error += "<div>Perhaps try <a href='%s'>its first revision</a> instead" % redirected.location
+            return exc.HTTPNotFound(body=error)
+
         except ResourceUnchanged, e:
             request.GET['version'] = str(e.last_change)
             return redirect(request)
+
         except FutureRevision, e:
             error = "<h1>No such revision %s</h1>" % e.rev
             last_changed_rev = self.svn(request).last_changed_rev(request.path_info, version)
             request.GET['version'] = last_changed_rev
             redirected = redirect(request)
-            error += "<div>Perhaps try <a href='%s'>this</a> instead" % redirected.location
+            error += "<div>Perhaps try <a href='%s'>its last revision</a> instead" % redirected.location
             return exc.HTTPNotFound(body=error)
 
         content = contents['body']
