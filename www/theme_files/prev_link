@@ -1,13 +1,23 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script type="text/javascript">
-  var fetch = function(url) {
+  var fetchPage = function(url, rev) {
+    var href = url + "?version=" + rev;
+    
+    var afterFetch = function(req, status) {
+      jQuery("#right")[0].innerHTML = req.responseText;
+    };
+
+    jQuery.ajax({
+      url: url,
+      complete: afterFetch
+    });
+  };
+
+  var fetchPrevious = function(url) {
     var afterFetch = function(req, status) {
       var version = req.getResponseHeader("X-Svenweb-Version");
       var prev = parseInt(version) - 1;
-      jQuery("<a>").attr("href", url + "?version=" + prev)
-                   .text("Previous Version")
-		   .appendTo("#navigation");
-      jQuery("#navigation").show();
+      fetchPage(url, prev);
     };
 
     jQuery.ajax({

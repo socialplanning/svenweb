@@ -7,20 +7,29 @@
     <dev-allow>127.0.0.1</dev-allow>
   </server-settings>
 
-  <proxy path="/theme_files">
+  <proxy path="/.svenweb/theme_files">
     <request header="X-Deliverance-Notheme" content="1" />
     <dest next="1" />
   </proxy>
 
-  <proxy path="/">
+  <proxy path="/.svenweb">
     <wsgi app="config:///home/ejucovy/deli/svenweb/paste.ini" /> 
   </proxy>
 
-  <theme href="/theme_files/theme?latest-version" />
+  <proxy path="/" class="home">
+    <dest href="file:///home/ejucovy/deli/svenweb/www/theme_files" />
+  </proxy>
 
-  <rule>
+  <theme href="/.svenweb/theme_files/theme?latest-version" />
+
+<!--  <rule class="hom">
     <replace content="children:body" theme="div#content" />
-    <append content="script" theme="head" href="/theme_files/prev_link?latest-version" />
+    <append content="script" theme="head" href="/.svenweb/theme_files/prev_link?latest-version" />
+  </rule> -->
+
+  <rule class="home">
+    <replace theme="body" content="body" collapse-sources="1" />
+    <append content="script" theme="head" href="/.svenweb/theme_files/prev_link?latest-version" />
   </rule>
 
 </ruleset>
