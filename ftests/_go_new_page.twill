@@ -1,0 +1,5 @@
+go ${base_url}/${page_id}/
+
+# note that the trailing slash should trimmed in the redirect
+code 200
+url ${base_url}/${page_id} #?view=edit

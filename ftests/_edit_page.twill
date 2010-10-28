@@ -1,0 +1,13 @@
+url ${base_url}/${page_id} #?view=edit
+
+fv 1 svenweb.resource_body ${body}
+fv 1 svenweb.commit_message ${msg}
+submit
+
+url ${base_url}/${page_id}
+find ${body}
+go ${base_url}/${page_id}?view=history
+find ${msg}
+
+go ${base_url}/${page_id}?view=edit
+find ${body}

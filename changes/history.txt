@@ -1,0 +1,64 @@
+0.4.1 (2010-01-30)
+------------------
+
+ * Better hbmp handling
+
+
+0.4 (2010-01-30)
+----------------
+
+ * Fix mimetype handling which seems to have been really quite broken
+   for god knows how long. It now all behaves as you'd expect.
+
+ * Abstract out template_loader option, which should be a callable
+   which takes a (template_name, data_dict) and returns a string.
+   The default is the existing Tempita stuff. This interface will
+   probably change. It can be an object configured however it likes,
+   currently that's just handled in the paste.deploy factory.
+
+ * Internal refactoring of components for easier pluggability of
+   custom edit apps (which handle editform, addform and save) and
+   view apps (which handle rendering)
+
+   Demo of custom view apps: custom display for text/csv+hbmp format!
+
+
+0.3 (2010-01-30)
+----------------
+
+ * When displaying an edit form for a file that does not exist,
+   use the return value of mimetypes.guess_type as the default
+   mimetype for the file in the form. If no guessable mimetype
+   is found, the default is 'text/html'.
+
+   This behavior can be overridden by subclassing SvnWikiView
+   and implementing a custom `new_file_default_mimetype_policy`
+   method. The method should take a `request` argument.
+
+
+0.2 (2010-01-26)
+----------------
+
+ * BZR repositories are now supported. This is much faster than
+   SVN. To use, simply add 'svenweb.repo_type=bzr' to your
+   paste.deploy configuration.
+
+ * Added a WSGI middleware filter to set a response's Content-type
+   header based on the versioned mimetype property of a resource.
+   It can be used independent of the rest of svenweb, for example
+   if you want to publish the current contents of your versioned
+   resources with a static file server. Use like
+
+       [filter:contenttype]
+       use = egg:svenweb#content_type
+       checkout_dir = /path/to_your/checkout/
+       default_content_type = text/plain
+       repo_type = bzr
+
+    The 'repo_type' and 'default_content_type' settings are optional.
+
+
+0.1.1 (2010-01-03)
+------------------
+
+First release.

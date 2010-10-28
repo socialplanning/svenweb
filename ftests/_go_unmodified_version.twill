@@ -1,0 +1,10 @@
+#todo: this test does nothing
+
+url ${base_url}/${page_id}
+
+go ${base_url}/${page_id}?version=${rev_big}
+#code 307
+url ${base_url}/${page_id} #?version=${rev_small}
+
+go ${base_url}/${page_id}
+url ${base_url}/${page_id} #?version=${rev_small}
