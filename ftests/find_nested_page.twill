@@ -1,0 +1,9 @@
+go ${base_url}/documents/private/very-private/readme
+code 200
+
+go ${base_url}
+follow documents
+follow private
+follow very-private
+follow readme
+code 200
