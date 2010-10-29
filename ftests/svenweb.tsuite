@@ -1,7 +1,7 @@
 _go_new_page(page_id=${page_id})
 _edit_page(page_id=${page_id}, body="flurab", msg="added a new one", version=1)
 
-find_page
+find_page(page_id=${page_id})
 
 _go_existing_page(page_id=${page_id}, version=1)
 _edit_page(page_id=${page_id}, body="bloobar", msg="made it more blobry", version=2)
@@ -25,3 +25,11 @@ _edit_page(page_id="documents/readme", body="you should read this file", msg="ad
 
 _go_existing_page(page_id="documents/readme", version=4)
 _go_repo_future(page_id="documents/readme", version=5, last_change=4)
+
+_go_new_page(page_id="documents/private/very-private/readme")
+_edit_page(page_id="documents/private/very-private/readme", body="nobody should read this file", msg="added private readme", version=5)
+
+_go_existing_page(page_id="documents/private/very-private/readme", version=5)
+_go_repo_future(page_id="documents/private/very-private/readme", version=6, last_change=5)
+
+_go_existing_page(page_id="documents/readme", version=4)
