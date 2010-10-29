@@ -48,11 +48,6 @@ class SvnWikiView(object):
         return self.backend(self.checkout_dir)
 
     def get_response(self, template, data, content_type=None):
-        #if template != 'edit.html':
-        #    return Response(body=data['body'],
-        #                    content_type=data.get('mimetype',
-        #                                          'text/html'))
-
         data['mimetype'] = content_type = data.get('mimetype') or data.get('mimetype') or 'text/html'
 
         content = self.template_loader(template, data)
