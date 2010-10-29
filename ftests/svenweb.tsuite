@@ -4,18 +4,18 @@ _edit_page(page_id=${page_id}, body="flurab", msg="added a new one", version=1)
 find_page
 
 _go_existing_page(page_id=${page_id})
-_edit_page(page_id=${page_id}, body="bloobar", msg="made it more blobry", version=4)
+_edit_page(page_id=${page_id}, body="bloobar", msg="made it more blobry", version=2)
 
 _go_new_page(page_id=${page_id2})
-_edit_page(page_id=${page_id2}, body="flurab", msg="added a new one", version=6)
+_edit_page(page_id=${page_id2}, body="flurab", msg="another new one", version=3)
 
 _go_existing_page(page_id=${page_id})
-_go_unmodified_version(page_id=${page_id}, rev_big=7, rev_small=4)
+_go_unmodified_version(page_id=${page_id}, rev_big=3, rev_small=2)
 
-_go_repo_future(page_id=${page_id}, version=8, last_change=4)
-_go_repo_future(page_id=${page_id}, version=80, last_change=4)
+_go_repo_future(page_id=${page_id}, version=8, last_change=2)
+_go_repo_future(page_id=${page_id2}, version=80, last_change=3)
 
-_go_before_page_created(page_id=${page_id2}, version=3, first_version=6)
+_go_before_page_created(page_id=${page_id2}, version=1, first_version=3)
 _go_before_page_created(page_id=${page_id}, version=0, first_version=1)
 
 history

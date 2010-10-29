@@ -1,8 +1,18 @@
 go ${base_url}/${page_id}?view=history
 code 200
 
-find r4
+notfind r3
 find r1
+find r2
 
 find "made it more blobry"
 find "added a new one"
+
+go ${base_url}?view=history
+find r3
+find r2
+find r1
+notfind r4
+
+find "made it more blobry"
+find "another new one"
