@@ -52,6 +52,7 @@ class BaseEditor(object):
         return self.form(request, content, metadata)
 
     def convert(self, request):
+        assert False
         content = request.POST.get('svenweb.resource_body')
 
         mimetype = request.POST.get('svenweb.mimetype')
@@ -72,28 +73,20 @@ class BaseEditor(object):
         contents = request.POST.get('svenweb.resource_body')
 
         message = request.POST.get('svenweb.commit_message')
-        mimetype = request.POST.get('svenweb.mimetype')
-        metadata = {'mimetype': mimetype}
+        metadata = {}
 
         loc = location(request)
         return (contents, message, metadata,
                 exc.HTTPSeeOther(location=loc))
 
     def form(self, request, content, metadata):
-
-        mimetype = metadata.get("mimetype")
-
         content = self.template_loader('edit.html', 
                                        dict(body=content,
-                                            mimetype=mimetype,
-                                            conversions=get_conversions(mimetype),
                                             ))
         return Response(content_type='text/html', body=content)
 
     def new(self, request):
-        mimetype = self.new_default_mimetype(request) 
         content = self.template_loader('edit.html', dict(body='',
-                                                         mimetype=mimetype,
                                                          ))
         return Response(content_type='text/html', body=content)
     
