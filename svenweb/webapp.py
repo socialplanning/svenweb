@@ -63,31 +63,23 @@ class SvnWikiView(object):
         return res(environ, start_response)
 
     def maybe_save(self, request):
-        if 'set-type' in request.GET:
-            mimetype = request.POST.get('type')
-            self.svn(request).set_mimetype(request.path_info, type)
-            return exc.HTTPSeeOther(location='.')
-
         save = self.editor.match_save(request)
         if not save:
             return None
 
-        contents, message, mimetype, res = save(request)
+        contents, message, metadata, res = save(request)
 
         self.svn(request).write(request.path_info, 
-                                contents, message, mimetype)
+                                contents, message, metadata=metadata)
         x = self.svn(request)
         uri = request.path_info
         return res
 
     def maybe_editform(self, request):
         try:
-            q = self.svn(request).read(request.path_info)
-            content = q['body']
-            mimetype = q['mimetype']
+            content = self.svn(request).read(request.path_info)
+            metadata = {}
         except NotAFile:
-            return Response("<form method='POST' action='./?set-type'><input name='type' /><input type='submit' /></form>")
-
             return exc.HTTPBadRequest("Cannot edit directories")
         except NoSuchResource:
             return self.editor.new(request)
@@ -95,7 +87,7 @@ class SvnWikiView(object):
         x = self.svn(request)
         uri = request.path_info
 
-        return self.editor.editform(request, content, mimetype)
+        return self.editor.editform(request, content, metadata)
 
     def handle_request(self, request):
         if request.method == "POST":
@@ -233,7 +225,7 @@ class SvnWikiView(object):
                     version = last_changed_rev
                 else:
                     return redirect(request)
-            contents = self.svn(request).read(request.path_info, version)
+            data = self.svn(request).read(request.path_info, version)
         except NotAFile:
             request.GET['view'] = 'index'
             return redirect(request)
@@ -273,12 +265,12 @@ class SvnWikiView(object):
             error += "<div>Perhaps try <a href='%s'>its last revision</a> instead" % redirected.location
             return exc.HTTPNotFound(body=error)
 
-        content = contents['body']
-        mimetype = contents['mimetype']
+        contents = {'contents': data}
+        mimetype = "text/html"
 
-        view = self.viewer.match_view(request, content, mimetype)
+        view = self.viewer.match_view(request, data, mimetype)
         if view:
-            return view(request, content)
+            return view(request, data)
 
         contents['prev_href'] = "%s?version=%d" % (request.path_info,
                                                    int(
@@ -290,8 +282,8 @@ class SvnWikiView(object):
         contents['format'] = request.GET.get('format')
 
         res = Response(
-            content_type=contents['mimetype'] or 'text/html',
-            body=contents['body'])
+            content_type=mimetype,
+            body=data)
         res.content_length = len(res.body)
 
         res.headers['X-Svenweb-Version'] = version

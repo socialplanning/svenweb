@@ -32,14 +32,14 @@ class BaseEditor(object):
     def match_save(self, request):
         """
         return a callable that takes a request and returns
-        (contents, commit_message, mimetype, webob.Response)
+        (contents, commit_message, metadata, webob.Response)
         """
         if request.method == "POST":
             if request.POST.has_key('convert'):
                 return self.convert
             return self.post
 
-    def editform(self, request, content, mimetype):
+    def editform(self, request, content, metadata):
         """
         returns a callable that takes a (webob.Request, content, mimetype)
         and returns a webob.Response
@@ -49,7 +49,7 @@ class BaseEditor(object):
         if request.GET.get('view') != 'edit':
             return None
 
-        return self.form(request, content, mimetype)
+        return self.form(request, content, metadata)
 
     def convert(self, request):
         content = request.POST.get('svenweb.resource_body')
@@ -61,7 +61,7 @@ class BaseEditor(object):
 
         loc = location(request)        
         return (convert(_from, mimetype, content),
-                message, mimetype,
+                message, {'mimetype':mimetype},
                 exc.HTTPSeeOther(location=loc))
         
 
@@ -73,12 +73,15 @@ class BaseEditor(object):
 
         message = request.POST.get('svenweb.commit_message')
         mimetype = request.POST.get('svenweb.mimetype')
-        
+        metadata = {'mimetype': mimetype}
+
         loc = location(request)
-        return (contents, message, mimetype,
+        return (contents, message, metadata,
                 exc.HTTPSeeOther(location=loc))
 
-    def form(self, request, content, mimetype):
+    def form(self, request, content, metadata):
+
+        mimetype = metadata.get("mimetype")
 
         content = self.template_loader('edit.html', 
                                        dict(body=content,
