@@ -1,6 +1,12 @@
 from sven.exc import *
-from sven.backend import SvnAccess
-from sven.bzr import BzrAccess
+try:
+    from sven.backend import SvnAccess
+except ImportError:
+    SvnAccess = None
+try:
+    from sven.bzr import BzrAccess
+except ImportError:
+    BzrAccess = None
 from webob import Request, Response, exc
 import time, datetime
 

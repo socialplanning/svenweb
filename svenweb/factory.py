@@ -4,12 +4,9 @@ from paste.httpexceptions import HTTPExceptionHandler
 from pkg_resources import iter_entry_points
 
 from svenweb.template_loader import TempitaLoader
-from hyperbmp.read import HbmpView
 
 from svenweb.edit import BaseEditor
 from svenweb.read import BaseReader
-
-from hyperbmp.edit import HbmpEditor
 
 def factory(global_conf, editor=None, viewer=None, **app_conf):
     """create a webob view and wrap it in middleware"""
