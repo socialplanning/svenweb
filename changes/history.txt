@@ -1,3 +1,12 @@
+0.5 (2010-02-16)
+----------------
+
+ * Fixed several bugs in link generation (index pages, redirects after save) which
+   had been incorrect when svenweb was not mounted at the root of the URL space.
+
+ * Refactoring and cleanup.
+
+
 0.4.1 (2010-01-30)
 ------------------
 
