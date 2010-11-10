@@ -7,6 +7,7 @@ Quickstart::
 
   virtualenv svenweb; cd svenweb; source bin/activate
   easy_install -e -b . svenweb
+  easy_install bzr
   cd svenweb
   python setup.py develop
   bzr init /tmp/bzr

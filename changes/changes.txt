@@ -1,0 +1,13 @@
+ * Remove various imports that cause ImportErrors unless pysvn libs / bzr libs / hbmp are installed
+
+ * Add flunc tests
+
+ * Backtracking on mimetype, moving towards generic metadata 
+
+ * 404 (instead of 500) when visiting a document at a revision past 
+   the repo HEAD.  The response body contains a link to the document
+   at the repo HEAD.
+
+ * 404 (instead of 500) when visiting a document at a revision prior
+   to that document's birth.  The response body contains a link to
+   the document at the revision of its birth.
