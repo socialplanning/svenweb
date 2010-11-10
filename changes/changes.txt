@@ -1,0 +1,2 @@
+ * Add svenweb.farm, a WSGI application that can dispatch requests
+   to one of N repositories based on an HTTP_X_SVENWEB_DIR key.

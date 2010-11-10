@@ -54,6 +54,7 @@ setup(name='svenweb',
       entry_points="""
       [paste.app_factory]
       main = svenweb.factory:factory
+      farm = svenweb.farm:factory
       [paste.filter_factory]
       content_type = svenweb.middleware.response.setter.content_type:filter_factory
 
