@@ -39,7 +39,7 @@ class SvnWikiView(object):
 
         self.template_loader = template_loader
 
-        self.checkout_dir = checkout_dir
+        self._checkout_dir = checkout_dir
 
         if repo_type == 'bzr':
             self.backend = BzrAccess
@@ -50,8 +50,11 @@ class SvnWikiView(object):
 
         self.viewer = viewer
 
+    def checkout_dir(self, request):
+        return self._checkout_dir
+        
     def svn(self, request):
-        return self.backend(self.checkout_dir)
+        return self.backend(self.checkout_dir(request))
 
     def get_response(self, template, data, content_type=None):
         data['mimetype'] = content_type = data.get('mimetype') or data.get('mimetype') or 'text/html'
